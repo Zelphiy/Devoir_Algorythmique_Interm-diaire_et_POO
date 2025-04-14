@@ -91,19 +91,82 @@ class CentreVaccination:
 
 
 
+# centre = CentreVaccination()
+
+# # # Ajout des médecins
+# centre.ajouter_medecin(MedecinGeneraliste("Dr Martin"))
+# centre.ajouter_medecin(Pediatre("Dr Petit"))
+# centre.ajouter_medecin(Urgentiste("Dr Secours"))
+
+# # # Ajout de patients
+# centre.ajouter_patient(Patient("Alice", 30, False))
+# centre.ajouter_patient(Patient("Bob", 6, False))
+# centre.ajouter_patient(Patient("Charlie", 50, True))
+# centre.ajouter_patient(Patient("Daisy", 10, True))
+# centre.ajouter_patient(Patient("Eliot", 15, False))
+
+# # # Traitement de la file
+# centre.traiter()
+
+# Ajout d'un menu interactif en console pour tester le fonctionnement du programme
+
+def menu_interactif():
+    print("Menu Centre de Vaccination")
+    print("1. Ajouter un patient")
+    print("2. Ajouter un médecin")
+    print("3. Afficher la file")
+    print("4. Traiter les patients")
+    print("5. Taille de la file")
+    print("6. Quitter")
+    
 centre = CentreVaccination()
 
-# # Ajout des médecins
-centre.ajouter_medecin(MedecinGeneraliste("Dr Martin"))
-centre.ajouter_medecin(Pediatre("Dr Petit"))
-centre.ajouter_medecin(Urgentiste("Dr Secours"))
-
-# # Ajout de patients
-centre.ajouter_patient(Patient("Alice", 30, False))
-centre.ajouter_patient(Patient("Bob", 6, False))
-centre.ajouter_patient(Patient("Charlie", 50, True))
-centre.ajouter_patient(Patient("Daisy", 10, True))
-centre.ajouter_patient(Patient("Eliot", 15, False))
-
-# # Traitement de la file
-centre.traiter()
+while True:
+    menu_interactif()
+    choix = input("Votre choix : ")
+    
+    if choix == "1":
+        nom = input("Nom du patient : ")
+        age = int(input("Âge : "))
+        urgence = input("Urgent ? (oui/non) : ").lower() == "oui"
+        patient = Patient(nom, age, urgence)
+        
+        if age >= 75:
+            centre.prioriser_patient(patient)
+            print(f"{nom} a été priorisé dans la file du à son âge.")
+        else:
+            centre.ajouter_patient(patient)
+            print(f"{nom} a été ajouté à la file")
+            
+    elif choix == "2":
+        nom = input("Nom du médecin : ")
+        print("Type de médecin :\n 1. Généraliste\n 2. Pédiatre\n 3. Urgentiste")
+        type_med = input("Votre choix : ")
+        if type_med == "1":
+            centre.ajouter_medecin(MedecinGeneraliste(nom))
+        elif type_med == "2":
+            centre.ajouter_medecin(Pediatre(nom))
+        elif type_med == "3":
+            centre.ajouter_medecin(Urgentiste(nom))
+        else:
+            print("Type inconnu.")
+        print(f"{nom} a été ajouté.")
+        
+    elif choix == "3":
+        centre.afficher_file()
+        
+    elif choix == "4":
+        centre.traiter()
+        
+    elif choix == "5":
+        print(f"Nombre de patient en attente : {centre.taille_file()}")
+        
+    elif choix == "6":
+        print("Fin du menu interractif !")
+        break
+    
+    else:
+        print("Choix invalid, réessayez.")
+        
+        
+        
