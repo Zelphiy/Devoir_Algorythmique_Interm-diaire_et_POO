@@ -162,8 +162,11 @@ while True:
         print(f"Nombre de patient en attente : {centre.taille_file()}")
         
     elif choix == "6":
-        print("Fin du menu interractif.")
+        print("Fin du menu interractif !")
         break
     
     else:
         print("Choix invalid, réessayez.")
+        
+        
+        
